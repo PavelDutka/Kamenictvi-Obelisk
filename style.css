@@ -26,6 +26,11 @@ html {
     scroll-behavior: smooth;
 }
 
+::selection {
+    background-color: var(--primary-color);
+    color: white;
+}
+
 body {
     font-family: var(--font-body);
     color: var(--text-dark);
