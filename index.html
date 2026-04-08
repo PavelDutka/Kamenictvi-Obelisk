@@ -184,5 +184,41 @@
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+
+            let positions = ['left', 'active', 'right'];
+
+            const updateCarousel = () => {
+                carouselItems.forEach((item, index) => {
+                    item.className = 'carousel-item ' + positions[index];
+                });
+            };
+
+            nextBtn.addEventListener('click', () => {
+                positions.unshift(positions.pop());
+                updateCarousel();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                positions.push(positions.shift());
+                updateCarousel();
+            });
+
+            carouselItems.forEach((item) => {
+                item.addEventListener('click', () => {
+                    if (item.classList.contains('left')) {
+                        prevBtn.click();
+                    } else if (item.classList.contains('right')) {
+                        nextBtn.click();
+                    }
+                });
+                item.style.cursor = 'pointer';
+            });
+        });
+    </script>
 </body>
 </html>
