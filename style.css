@@ -9,8 +9,8 @@
     --bg-white: #ffffff;
     --border-color: #e0e0e0;
 
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Noto Serif', serif;
+    --font-body: 'Open Sans', sans-serif;
 
     --transition: all 0.3s ease;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
