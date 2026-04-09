@@ -468,17 +468,82 @@ h4 {
 .about {
     padding: 6rem 0;
     background-color: var(--bg-light);
-    text-align: center;
 }
 
-.about-content {
-    max-width: 800px;
-    margin: 0 auto;
+.about-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    align-items: center;
 }
 
-.about-content p {
-    font-size: 1.1rem;
+.about-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-text p {
+    font-size: 1.15rem;
     color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.about-text .about-lead {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+}
+
+.about-text .about-lead strong {
+    color: var(--primary-color);
+}
+
+.about-subtitle {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.about-features {
+    flex: 1.5;
+    min-width: 300px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature-box {
+    background: var(--bg-white);
+    padding: 2rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    transition: var(--transition);
+    border-top: 3px solid var(--primary-color);
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.feature-box i {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.feature-box h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.feature-box p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.5;
 }
 
 /* Footer */
