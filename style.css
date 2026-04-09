@@ -743,6 +743,8 @@ h4 {
 
 .footer-col a {
     color: #aaa;
+    text-decoration: none;
+    transition: var(--transition);
 }
 
 .footer-col a:hover {
