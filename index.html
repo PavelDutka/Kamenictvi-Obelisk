@@ -39,7 +39,11 @@
                 </ul>
             </nav>
             <!-- Mobile Menu Toggle -->
-            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <button class="mobile-toggle" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </header>
 
@@ -298,6 +302,24 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const nav = document.querySelector('.nav');
+            
+            mobileToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+                mobileToggle.classList.toggle('active');
+                document.querySelector('.header').classList.toggle('menu-open');
+            });
+
+            // Zavření menu po klinutí na odkaz
+            document.querySelectorAll('.nav-list li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    nav.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                    document.querySelector('.header').classList.remove('menu-open');
+                });
+            });
+
             const carouselItems = document.querySelectorAll('.carousel-item');
             const prevBtn = document.querySelector('.prev-btn');
             const nextBtn = document.querySelector('.next-btn');
