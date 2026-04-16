@@ -784,8 +784,8 @@ h4 {
 }
 
 .footer-logo {
-    width: 150px;
-    margin-bottom: 1.5rem;
+    width: 220px;
+    margin-bottom: 2rem;
 }
 
 .footer-col h4 {
@@ -810,6 +810,27 @@ h4 {
 
 .footer-col a:hover {
     color: var(--primary-color);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+    padding-left: 5px;
 }
 
 .footer-bottom {
