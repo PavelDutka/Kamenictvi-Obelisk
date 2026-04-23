@@ -1020,6 +1020,18 @@ h4 {
     font-family: var(--font-heading);
 }
 
+/* Sub-Hero (Monuments, Boards etc.) */
+.sub-hero {
+    position: relative;
+    padding: 10rem 0 6rem;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+}
+
 /* Product Grid */
 .product-grid {
     display: grid;
