@@ -64,6 +64,23 @@ ul {
     padding: 6rem 0;
 }
 
+.section-reverse {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+}
+
+.section-reverse > div {
+    flex: 1;
+    min-width: 300px;
+}
+
+@media (max-width: 992px) {
+    .section-reverse {
+        flex-direction: column;
+    }
+}
+
 /* Typography */
 h1,
 h2,
