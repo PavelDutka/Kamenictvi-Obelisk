@@ -309,6 +309,12 @@
         </div>
     </footer>
 
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Zavřít"><i class="fas fa-times"></i></button>
+        <img src="" alt="Detailní náhled" class="lightbox-content" id="lightbox-img">
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const mobileToggle = document.querySelector('.mobile-toggle');
@@ -357,10 +363,32 @@
                         prevBtn.click();
                     } else if (item.classList.contains('right')) {
                         nextBtn.click();
+                    } else if (item.classList.contains('active')) {
+                        const img = item.querySelector('img');
+                        if (img) {
+                            document.getElementById('lightbox-img').src = img.src;
+                            document.getElementById('lightbox').classList.add('active');
+                        }
                     }
                 });
                 item.style.cursor = 'pointer';
             });
+
+            // Lightbox close logic
+            const lightbox = document.getElementById('lightbox');
+            const lightboxClose = document.getElementById('lightbox-close');
+
+            if (lightbox && lightboxClose) {
+                lightboxClose.addEventListener('click', () => {
+                    lightbox.classList.remove('active');
+                });
+
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        lightbox.classList.remove('active');
+                    }
+                });
+            }
         });
     </script>
 </body>
