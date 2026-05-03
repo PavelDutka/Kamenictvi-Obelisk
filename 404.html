@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Stránka nenalezena | Kamenictví Obelisk</title>
+    <meta name="description" content="Stránka, kterou hledáte, neexistuje. Návrat na úvodní stránku Kamenictví Obelisk.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500&family=Inter:wght@200&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="img/logo_icon_primary.svg" alt="Obelisk Logo">
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="pomniky.html">Pomníky</a></li>
+                    <li><a href="desky.html">Desky</a></li>
+                    <li><a href="dlazby.html">Dlažby</a></li>
+                    <li><a href="stavby.html">Stavby</a></li>
+                    <li><a href="doplnky.html">Doplňky</a></li>
+                    <li><a href="renovace.html">Renovace</a></li>
+                    <li><a href="index.html#kontakt" class="nav-cta">Poptávka</a></li>
+                </ul>
+            </nav>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- 404 Section -->
+    <section class="not-found-section">
+        <div class="container not-found-content">
+            <h1>404</h1>
+            <h2>Stránka nenalezena</h2>
+            <p>Omlouváme se, ale stránka, kterou hledáte, neexistuje, byla přesunuta, nebo dočasně není k dispozici.</p>
+            <a href="index.html" class="btn btn-primary">Zpět na úvodní stránku</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-col">
+                <img src="img/logo_dark.svg" alt="Obelisk" class="footer-logo">
+            </div>
+            <div class="footer-col">
+                <h4>Navigace</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Domů</a></li>
+                    <li><a href="index.html#sluzby">Služby</a></li>
+                    <li><a href="index.html#ukazka">Ukázka práce</a></li>
+                    <li><a href="index.html#kontakt">Poptávka</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:info@obeliskhb.cz">info@obeliskhb.cz</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+420606461923">+420 606 461 923</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+420569438305">+420 569 438 305</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Libor Šimon - kamenictví Obelisk</p>
+            <p>web by <a href="https://paveldutka.com">Pavel Dutka</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const nav = document.querySelector('.nav');
+
+            mobileToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+                mobileToggle.classList.toggle('active');
+                document.querySelector('.header').classList.toggle('menu-open');
+            });
+
+            // Zavření menu po klinutí na odkaz
+            document.querySelectorAll('.nav-list li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    nav.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                    document.querySelector('.header').classList.remove('menu-open');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
