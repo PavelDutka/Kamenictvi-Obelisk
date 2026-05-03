@@ -134,31 +134,24 @@
             <h2 class="section-title">Ukázka našich realizací</h2>
             <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem auto; color: var(--text-light); font-size: 1.1rem;">Inspirujte se návrhy a zpracováním našich kuchyňských desek v reálných interiérech.</p>
             
-            <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
-                <div class="gallery-item" style="border-radius: 8px; overflow: hidden; aspect-ratio: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.05); position: relative; cursor: pointer;">
-                    <img src="img/desky.jpg" alt="Světlá kuchyňská deska" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <div class="carousel-container" style="margin-bottom: 2rem;">
+                <button class="carousel-btn prev-btn"><i class="fas fa-arrow-left"></i></button>
+
+                <div class="carousel-gallery">
+                    <div class="carousel-item left">
+                        <img src="img/desky.jpg" alt="Světlá kuchyňská deska">
+                    </div>
+                    <div class="carousel-item active">
+                        <img src="img/desky/desky_1.png" alt="Realizace pracovní desky z žuly">
+                    </div>
+                    <div class="carousel-item right">
+                        <img src="img/desky/desky_2.png" alt="Kuchyňská linka s žulovou deskou">
+                    </div>
                 </div>
-                <div class="gallery-item" style="border-radius: 8px; overflow: hidden; aspect-ratio: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.05); position: relative; cursor: pointer;">
-                    <img src="img/desky_bg.png" alt="Tmavá pracovní deska se dřezem" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                </div>
-                <div class="gallery-item" style="border-radius: 8px; overflow: hidden; aspect-ratio: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.05); position: relative; cursor: pointer;">
-                    <img src="img/desky_detail.png" alt="Detail opracování hrany" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                </div>
-                <div class="gallery-item" style="border-radius: 8px; background: #f5f5f5; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; color: #aaa; border: 1px dashed #ddd;">
-                    <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 10px; color: #ccc;"></i>
-                    <span>IMG 6605</span>
-                </div>
-                <div class="gallery-item" style="border-radius: 8px; background: #f5f5f5; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; color: #aaa; border: 1px dashed #ddd;">
-                    <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 10px; color: #ccc;"></i>
-                    <span>IMG 0860</span>
-                </div>
-                <div class="gallery-item" style="border-radius: 8px; background: #f5f5f5; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; color: #aaa; border: 1px dashed #ddd;">
-                    <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 10px; color: #ccc;"></i>
-                    <span>IMG 0908</span>
-                </div>
+
+                <button class="carousel-btn next-btn"><i class="fas fa-arrow-right"></i></button>
             </div>
-            <p style="text-align: center; margin-top: 2rem; font-size: 0.95rem; color: #999;">* Na doplnění dalších fotografií aktuálně pracujeme.</p>
-        </div>
+         </div>
     </section>
 
     <!-- Call to Action -->
@@ -200,6 +193,12 @@
         </div>
     </footer>
 
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Zavřít"><i class="fas fa-times"></i></button>
+        <img src="" alt="Detailní náhled" class="lightbox-content" id="lightbox-img">
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const mobileToggle = document.querySelector('.mobile-toggle');
@@ -218,6 +217,64 @@
                     document.querySelector('.header').classList.remove('menu-open');
                 });
             });
+
+            // Carousel Logic
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            if (carouselItems.length > 0) {
+                const prevBtn = document.querySelector('.prev-btn');
+                const nextBtn = document.querySelector('.next-btn');
+
+                let positions = ['left', 'active', 'right'];
+
+                const updateCarousel = () => {
+                    carouselItems.forEach((item, index) => {
+                        item.className = 'carousel-item ' + positions[index];
+                    });
+                };
+
+                nextBtn.addEventListener('click', () => {
+                    positions.unshift(positions.pop());
+                    updateCarousel();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    positions.push(positions.shift());
+                    updateCarousel();
+                });
+
+                carouselItems.forEach((item) => {
+                    item.addEventListener('click', () => {
+                        if (item.classList.contains('left')) {
+                            prevBtn.click();
+                        } else if (item.classList.contains('right')) {
+                            nextBtn.click();
+                        } else if (item.classList.contains('active')) {
+                            const img = item.querySelector('img');
+                            if (img) {
+                                document.getElementById('lightbox-img').src = img.src;
+                                document.getElementById('lightbox').classList.add('active');
+                            }
+                        }
+                    });
+                    item.style.cursor = 'pointer';
+                });
+
+                // Lightbox close logic
+                const lightbox = document.getElementById('lightbox');
+                const lightboxClose = document.getElementById('lightbox-close');
+
+                if(lightbox && lightboxClose) {
+                    lightboxClose.addEventListener('click', () => {
+                        lightbox.classList.remove('active');
+                    });
+
+                    lightbox.addEventListener('click', (e) => {
+                        if (e.target === lightbox) {
+                            lightbox.classList.remove('active');
+                        }
+                    });
+                }
+            }
         });
     </script>
 </body>
