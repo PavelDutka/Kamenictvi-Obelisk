@@ -26,14 +26,20 @@
             <a href="index.html" class="logo">
                 <img src="img/logo_icon_primary.svg" alt="Obelisk Logo">
             </a>
-            <nav class="nav">
+                                                            <nav class="nav">
                 <ul class="nav-list">
                     <li><a href="pomniky.html">Pomníky</a></li>
-                    <li><a href="desky.html" class="active">Desky</a></li>
-                    <li><a href="dlazby.html">Dlažby</a></li>
-                    <li><a href="stavby.html">Stavby</a></li>
-                    <li><a href="doplnky.html">Doplňky</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Domy <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="desky.html" class="active">Kuchyňské desky</a></li>
+                            <li><a href="dlazby.html">Žulová dlažba</a></li>
+                            <li><a href="stavby.html">Stavební prvky</a></li>
+                            <li><a href="doplnky.html">Zahradní doplňky</a></li>
+                        </ul>
+                    </li>
                     <li><a href="renovace.html">Renovace</a></li>
+                    <li><a href="index.html#ukazka">Vzorník</a></li>
                     <li><a href="poptavka.html" class="nav-cta">Poptávka</a></li>
                 </ul>
             </nav>
@@ -199,7 +205,19 @@
                 document.querySelector('.header').classList.toggle('menu-open');
             });
 
-            document.querySelectorAll('.nav-list li a').forEach(link => {
+            
+            // Dropdown logic for mobile
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const menu = toggle.nextElementSibling;
+                        menu.classList.toggle('open');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.nav-list li a:not(.dropdown-toggle)').forEach(link => {
                 link.addEventListener('click', () => {
                     nav.classList.remove('active');
                     mobileToggle.classList.remove('active');
