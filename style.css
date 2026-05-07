@@ -219,6 +219,7 @@ h4 {
 
 .logo img {
     height: 55px;
+    width: auto;
 }
 
 .nav-list {
@@ -433,6 +434,7 @@ h4 {
 
 .hero-main-logo {
     width: clamp(150px, 25vw, 300px);
+    height: auto;
     margin-bottom: 1rem;
     filter: brightness(0) invert(1);
 }
@@ -939,6 +941,7 @@ h4 {
 
 .footer-logo {
     width: 220px;
+    height: auto;
     margin-bottom: 2rem;
 }
 
