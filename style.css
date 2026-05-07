@@ -107,9 +107,33 @@ h4 {
     font-weight: 500;
     letter-spacing: 1px;
     font-size: 1rem;
-    border-radius: 0px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: -1;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn:hover::before {
+    width: 100%;
 }
 
 .btn-primary {
@@ -118,9 +142,13 @@ h4 {
     border: 1px solid var(--primary-color);
 }
 
-.btn-primary:hover {
+.btn-primary::before {
     background-color: var(--primary-dark);
+}
+
+.btn-primary:hover {
     border-color: var(--primary-dark);
+    color: white;
 }
 
 .btn-outline {
@@ -129,9 +157,27 @@ h4 {
     border: 1px solid var(--primary-color);
 }
 
-.btn-outline:hover {
+.btn-outline::before {
     background-color: var(--primary-color);
+}
+
+.btn-outline:hover {
     color: white;
+}
+
+.btn-outline-white {
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-outline-white::before {
+    background-color: white;
+}
+
+.btn-outline-white:hover {
+    color: var(--text-dark);
+    border-color: white;
 }
 
 /* Header */
