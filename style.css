@@ -949,6 +949,17 @@ h4 {
     font-size: 0.9rem;
 }
 
+.footer-bottom a {
+    color: #777;
+    text-decoration: none;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.footer-bottom a:hover {
+    color: var(--primary-color);
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .services-grid {
