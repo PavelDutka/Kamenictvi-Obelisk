@@ -185,6 +185,16 @@
                     document.querySelector('.header').classList.remove('menu-open');
                 });
             });
+
+            // Pre-fill material from URL query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const material = urlParams.get('material');
+            if (material) {
+                const textarea = document.querySelector('.contact-form textarea');
+                if (textarea) {
+                    textarea.value = `Dobrý den, mám zájem o nezávaznou kalkulaci na materiál: ${decodeURIComponent(material)}.\n\n[Zde prosím upřesněte požadované rozměry, tloušťku desky, povrchovou úpravu a typ výrobku...]`;
+                }
+            }
         });
     </script>
 </body>
