@@ -972,6 +972,7 @@ h4 {
 .footer-links {
     list-style: none;
     padding: 0;
+    text-align: center;
 }
 
 .footer-links li {
@@ -1007,6 +1008,14 @@ h4 {
 
 .footer-bottom a:hover {
     color: var(--primary-color);
+}
+
+.footer-col .btn-primary {
+    color: var(--text-dark);
+}
+
+.footer-col .btn-primary:hover {
+    color: white;
 }
 
 /* Responsive */
