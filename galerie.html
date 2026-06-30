@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie realizací | Kamenictví Obelisk</title>
+    <meta name="description"
+        content="Prohlédněte si galerii našich kamenických prací. Kuchyňské desky, hroby, dlažby a stavební prvky z přírodního kamene a žuly.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500&family=Inter:wght@200&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="img/logo_icon_primary.svg">
+
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #f1f1f1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .gallery-item .item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item .item-overlay i {
+            color: white;
+            font-size: 1.8rem;
+            transform: translateY(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .item-overlay i {
+            transform: translateY(0);
+        }
+
+        .load-more-container {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .load-more-btn {
+            padding: 14px 35px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="img/logo_icon_primary.svg" alt="Obelisk Logo" width="294" height="263">
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="pomniky.html">Pomníky</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Domy <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="desky.html">Kuchyňské desky</a></li>
+                            <li><a href="dlazby.html">Žulová dlažba</a></li>
+                            <li><a href="stavby.html">Stavební prvky</a></li>
+                            <li><a href="doplnky.html">Zahradní doplňky</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="renovace.html">Renovace</a></li>
+                    <li><a href="vzornik.html">Vzorník</a></li>
+                    <li><a href="galerie.html" class="active">Galerie</a></li>
+                    <li><a href="poptavka.html" class="nav-cta">Poptávka</a></li>
+                </ul>
+            </nav>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sub-Hero Section -->
+    <section class="sub-hero" style="--bg-image: url('img/gallery/WhatsApp Image 2026-06-02 at 12.19.40.jpeg');">
+        <div class="container">
+            <h1>Galerie našich realizací</h1>
+            <p style="max-width: 700px; margin: 1rem auto; font-size: 1.15rem; opacity: 0.9; line-height: 1.6;">
+                Prohlédněte si ukázky naší řemeslné práce. Od kuchyňských desek po monumentální rodinné hrobky.
+            </p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section" style="background-color: #ffffff; padding-top: 5rem;">
+        <div class="container">
+            <h2 class="section-title">Ukázky realizovaných projektů</h2>
+            <p style="text-align: center; max-width: 800px; margin: -1.5rem auto 3rem auto; color: var(--text-light); font-size: 1.1rem;">
+                Kliknutím na fotografii otevřete detailní náhled ve vysokém rozlišení.
+            </p>
+
+            <!-- Dynamic Gallery Container -->
+            <div id="gallery-container" class="gallery-grid">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+
+            <!-- Load More Action -->
+            <div class="load-more-container" id="load-more-box">
+                <button id="load-more-btn" class="btn btn-primary load-more-btn">Zobrazit další fotky</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium CTA Section -->
+    <section class="premium-cta"
+        style="position: relative; padding: 5rem 0; background-image: url('img/hero.webp'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(20,20,20,0.7) 100%); z-index: 1;">
+        </div>
+        <div class="container" style="position: relative; z-index: 2; display: flex; justify-content: center;">
+            <div
+                style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 3px solid var(--primary-color); border-radius: 12px; padding: 3rem 2rem; text-align: center; max-width: 700px; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
+
+                <h2
+                    style="font-family: var(--font-heading); font-size: clamp(1.4rem, 4vw, 2.2rem); color: white; margin-bottom: 0.8rem; line-height: 1.2;">
+                    Máte zájem o podobnou realizaci?
+                </h2>
+                <p
+                    style="font-size: 1.1rem; color: #ddd; margin-bottom: 2rem; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Líbí se vám naše práce? Kontaktujte nás prostřednictvím nezávazné poptávky a získejte rozpočet na míru pro váš projekt.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="poptavka.html" class="btn btn-primary"
+                        style="font-size: 1rem; padding: 0.8rem 2rem;">Nezávazná poptávka</a>
+                    <a href="tel:+420606461923" class="btn btn-outline-white"
+                        style="font-size: 1rem; padding: 0.8rem 2rem;"><i class="fas fa-phone"
+                            style="margin-right: 8px;"></i> Zavolat ihned</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-col">
+                <img src="img/logo_dark.svg" alt="Obelisk" class="footer-logo" width="336" height="288">
+            </div>
+            <div class="footer-col">
+                <h4>Navigace</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Domů</a></li>
+                    <li><a href="index.html#sluzby">Služby</a></li>
+                    <li><a href="index.html#ukazka">Ukázka práce</a></li>
+                    <li><a href="poptavka.html">Poptávka</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:info@obeliskhb.cz">info@obeliskhb.cz</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+420606461923">+420 606 461 923</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+420569438305">+420 569 438 305</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Libor Šimon - kamenictví Obelisk</p>
+            <p>web by <a href="https://paveldutka.com">Pavel Dutka</a></p>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Zavřít"><i class="fas fa-times"></i></button>
+        <img src="" alt="Detailní náhled" class="lightbox-content" id="lightbox-img" width="800" height="600">
+    </div>
+
+    <script>
+        // Gallery Images List (49 items)
+        const galleryImages = [
+            "WhatsApp Image 2026-06-02 at 12.19.39.jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.39 (1).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.39 (2).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.39 (3).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.39 (4).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.39 (5).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.39 (6).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.39 (7).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.39 (8).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.39 (9).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.40.jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.40 (1).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.40 (2).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.40 (3).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.40 (4).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.40 (5).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.40 (6).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.41.jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.41 (1).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.41 (2).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.41 (3).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.41 (4).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.41 (5).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.41 (6).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.42.jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.42 (1).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.42 (2).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.42 (3).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.43 (2).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.43 (3).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.44.jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.44 (1).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.44 (2).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.44 (3).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.44 (4).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.45.jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.45 (1).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.45 (2).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.45 (3).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.46.jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.46 (1).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.47.jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.47 (1).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.47 (2).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.47 (3).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.47 (4).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.47 (5).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.47 (6).jpeg",
+            "WhatsApp Image 2026-06-02 at 12.19.47 (7).jpeg"
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Logic
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const nav = document.querySelector('.nav');
+
+            mobileToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+                mobileToggle.classList.toggle('active');
+                document.querySelector('.header').classList.toggle('menu-open');
+            });
+
+            // Dropdown logic for mobile
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const menu = toggle.nextElementSibling;
+                        menu.classList.toggle('open');
+                    }
+                });
+            });
+
+            // Pagination Settings
+            const itemsPerPage = 12;
+            let loadedCount = 0;
+
+            const container = document.getElementById('gallery-container');
+            const loadMoreBox = document.getElementById('load-more-box');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+
+            function loadImages() {
+                const nextLimit = Math.min(loadedCount + itemsPerPage, galleryImages.length);
+                for (let i = loadedCount; i < nextLimit; i++) {
+                    const filename = galleryImages[i];
+                    const filepath = `img/gallery/${filename}`;
+
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.innerHTML = `
+                        <img src="${filepath}" alt="Realizace Kamenictví Obelisk" loading="lazy">
+                        <div class="item-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    `;
+                    container.appendChild(item);
+                }
+                
+                loadedCount = nextLimit;
+                
+                // Hide button if all images loaded
+                if (loadedCount >= galleryImages.length) {
+                    loadMoreBox.style.display = 'none';
+                }
+            }
+
+            // Initial load
+            loadImages();
+
+            // Load more event
+            loadMoreBtn.addEventListener('click', loadImages);
+
+            // Lightbox Event Delegation
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeBtn = document.getElementById('lightbox-close');
+
+            container.addEventListener('click', (e) => {
+                const item = e.target.closest('.gallery-item');
+                if (item) {
+                    const img = item.querySelector('img');
+                    if (img) {
+                        lightboxImg.src = img.src;
+                        lightbox.classList.add('active');
+                    }
+                }
+            });
+
+            if (closeBtn && lightbox) {
+                closeBtn.addEventListener('click', () => {
+                    lightbox.classList.remove('active');
+                });
+
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        lightbox.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
