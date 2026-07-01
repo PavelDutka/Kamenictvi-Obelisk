@@ -102,13 +102,9 @@
                 </div>
 
                 <div class="contact-form-wrapper">
-                    <form class="contact-form" action="https://formsubmit.co/pavel.dutka05@gmail.com" method="POST">
+                    <form class="contact-form" action="send_mail.php" method="POST">
                         <!-- Honeypot anti-spam -->
                         <input type="text" name="_honey" style="display:none">
-                        <!-- Custom subject -->
-                        <input type="hidden" name="_subject" value="Nová poptávka z webu Kamenictví Obelisk">
-                        <!-- Disable captcha -->
-                        <input type="hidden" name="_captcha" value="false">
                         
                         <div class="form-group">
                             <input type="text" name="jmeno" placeholder="Vaše jméno" required>
@@ -227,13 +223,24 @@
                         }
                     })
                     .then(response => {
-                        if (response.ok) {
-                            window.location.href = 'dekujeme.html';
-                        } else {
-                            alert('Při odesílání poptávky došlo k chybě. Zkuste to prosím znovu nebo nás kontaktujte telefonicky.');
-                            btn.disabled = false;
-                            btn.textContent = originalText;
-                        }
+                        return response.json().then(data => {
+                            if (response.ok && data.success) {
+                                window.location.href = 'dekujeme.html';
+                            } else {
+                                const errorMsg = data.error || 'Při odesílání poptávky došlo k chybě. Zkuste to prosím znovu.';
+                                alert(errorMsg);
+                                btn.disabled = false;
+                                btn.textContent = originalText;
+                            }
+                        }).catch(() => {
+                            if (response.ok) {
+                                window.location.href = 'dekujeme.html';
+                            } else {
+                                alert('Při odesílání poptávky došlo k chybě. Zkuste to prosím znovu.');
+                                btn.disabled = false;
+                                btn.textContent = originalText;
+                            }
+                        });
                     })
                     .catch(error => {
                         console.error('Error:', error);
