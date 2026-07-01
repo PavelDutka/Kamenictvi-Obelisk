@@ -272,9 +272,15 @@
                 </div>
 
                 <div class="contact-form-wrapper">
-                    <form class="contact-form" action="send_mail.php" method="POST">
+                    <form class="contact-form" action="https://formsubmit.co/pavel.dutka05@gmail.com" method="POST">
                         <!-- Honeypot anti-spam -->
                         <input type="text" name="_honey" style="display:none">
+                        <!-- Custom subject -->
+                        <input type="hidden" name="_subject" value="Nová poptávka z webu Kamenictví Obelisk">
+                        <!-- Disable captcha -->
+                        <input type="hidden" name="_captcha" value="false">
+                        <!-- Redirect link -->
+                        <input type="hidden" name="_next" id="form-redirect-url">
                         
                         <div class="form-group">
                             <input type="text" name="jmeno" placeholder="Vaše jméno" required>
@@ -420,53 +426,11 @@
                 });
             }
 
-            // AJAX Form Submission
-            const form = document.querySelector('.contact-form');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const btn = form.querySelector('button[type="submit"]');
-                    const originalText = btn.textContent;
-                    btn.disabled = true;
-                    btn.textContent = 'Odesílám...';
-                    
-                    const action = form.getAttribute('action') || 'https://formsubmit.co/pavel.dutka05@gmail.com';
-                    const formData = new FormData(form);
-                    
-                    fetch(action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    })
-                    .then(response => {
-                        return response.json().then(data => {
-                            if (response.ok && data.success) {
-                                window.location.href = 'dekujeme.html';
-                            } else {
-                                const errorMsg = data.error || 'Při odesílání poptávky došlo k chybě. Zkuste to prosím znovu.';
-                                alert(errorMsg);
-                                btn.disabled = false;
-                                btn.textContent = originalText;
-                            }
-                        }).catch(() => {
-                            if (response.ok) {
-                                window.location.href = 'dekujeme.html';
-                            } else {
-                                alert('Při odesílání poptávky došlo k chybě. Zkuste to prosím znovu.');
-                                btn.disabled = false;
-                                btn.textContent = originalText;
-                            }
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Při odesílání poptávky došlo k chybě. Zkontrolujte prosím připojení k internetu.');
-                        btn.disabled = false;
-                        btn.textContent = originalText;
-                    });
-                });
+            // Set dynamic absolute URL for FormSubmit redirect
+            const redirectInput = document.getElementById('form-redirect-url');
+            if (redirectInput) {
+                const folder = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+                redirectInput.value = window.location.origin + folder + 'dekujeme.html';
             }
         });
     </script>
