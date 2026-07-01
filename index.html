@@ -17,6 +17,47 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="img/logo_icon_primary.svg">
+
+    <!-- Structured Data for Google Sitelinks & Local SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://obeliskhb.cz/#website",
+          "url": "https://obeliskhb.cz/",
+          "name": "Kamenictví Obelisk",
+          "description": "Kamenosochařství Havlíčkův Brod - pomníky, kuchyňské desky, dlažby a schody z žuly",
+          "publisher": {
+            "@id": "https://obeliskhb.cz/#organization"
+          }
+        },
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://obeliskhb.cz/#organization",
+          "name": "Kamenictví Obelisk - Libor Šimon",
+          "url": "https://obeliskhb.cz/",
+          "logo": "https://obeliskhb.cz/img/logo_icon_primary.svg",
+          "image": "https://obeliskhb.cz/img/hero.webp",
+          "email": "info@obeliskhb.cz",
+          "telephone": "+420606461923",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Havlíčkův Brod",
+            "addressRegion": "Kraj Vysočina",
+            "postalCode": "58001",
+            "addressCountry": "CZ"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "49.584491",
+            "longitude": "15.561014"
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body>
