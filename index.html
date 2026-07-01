@@ -272,18 +272,25 @@
                 </div>
 
                 <div class="contact-form-wrapper">
-                    <form class="contact-form">
+                    <form class="contact-form" action="https://formsubmit.co/pavel.dutka05@gmail.com" method="POST">
+                        <!-- Honeypot anti-spam -->
+                        <input type="text" name="_honey" style="display:none">
+                        <!-- Custom subject -->
+                        <input type="hidden" name="_subject" value="Nová poptávka z webu Kamenictví Obelisk">
+                        <!-- Disable captcha -->
+                        <input type="hidden" name="_captcha" value="false">
+                        
                         <div class="form-group">
-                            <input type="text" placeholder="Vaše jméno" required>
+                            <input type="text" name="jmeno" placeholder="Vaše jméno" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Váš e-mail" required>
+                            <input type="email" name="email" placeholder="Váš e-mail" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" placeholder="Telefon (volitelné)">
+                            <input type="tel" name="telefon" placeholder="Telefon (volitelné)">
                         </div>
                         <div class="form-group">
-                            <textarea rows="4" placeholder="Vaše zpráva nebo dotaz" required></textarea>
+                            <textarea name="zprava" rows="4" placeholder="Vaše zpráva nebo dotaz" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Odeslat poptávku</button>
                     </form>
