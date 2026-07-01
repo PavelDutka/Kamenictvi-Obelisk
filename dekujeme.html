@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Děkujeme za poptávku | Kamenictví Obelisk</title>
+    <meta name="description" content="Vaše poptávka byla úspěšně odeslána. Odpovíme vám co nejdříve to půjde.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500&family=Inter:wght@200&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="img/logo_icon_primary.svg">
+</head>
+
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="img/logo_icon_primary.svg" alt="Obelisk Logo" width="294" height="263">
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="pomniky.html">Pomníky</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Domy <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="desky.html">Kuchyňské desky</a></li>
+                            <li><a href="dlazby.html">Žulová dlažba</a></li>
+                            <li><a href="stavby.html">Stavební prvky</a></li>
+                            <li><a href="doplnky.html">Zahradní doplňky</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="renovace.html">Renovace</a></li>
+                    <li><a href="vzornik.html">Vzorník</a></li>
+                    <li><a href="galerie.html">Galerie</a></li>
+                    <li><a href="poptavka.html" class="nav-cta">Poptávka</a></li>
+                </ul>
+            </nav>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Success Section -->
+    <section class="not-found-section">
+        <div class="container not-found-content" style="max-width: 600px;">
+            <i class="fas fa-check-circle"
+                style="font-size: 5rem; color: var(--primary-color); margin-bottom: 1.5rem; display: inline-block;"></i>
+            <h2
+                style="font-size: 2rem; color: var(--text-dark); margin-bottom: 1rem; font-family: var(--font-heading);">
+                Děkujeme za zprávu</h2>
+            <p
+                style="font-size: 1.1rem; color: var(--text-light); max-width: 500px; margin: 0 auto 2.5rem auto; line-height: 1.6;">
+                Vaši zprávu jsme v pořádku přijali. Ozveme se vám, co nejdříve to půjde.
+            </p>
+            <a href="index.html" class="btn btn-primary">Zpět na úvodní stránku</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-col">
+                <a href="index.html">
+                    <img src="img/logo_dark.svg" alt="Obelisk" class="footer-logo" width="336" height="288">
+                </a>
+            </div>
+            <div class="footer-col">
+                <ul class="footer-links">
+                    <li><a href="index.html">Domů</a></li>
+                    <li><a href="pomniky.html">Pomníky</a></li>
+                    <li><a href="desky.html">Domy</a></li>
+                    <li><a href="renovace.html">Renovace</a></li>
+                    <li><a href="vzornik.html">Vzorník</a></li>
+                    <li><a href="galerie.html">Galerie</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:info@obeliskhb.cz">info@obeliskhb.cz</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+420606461923">+420 606 461 923</a></p>
+                <a href="poptavka.html" class="btn btn-primary"
+                    style="margin-top: 1rem; display: inline-block; padding: 10px 20px; font-size: 0.9rem;">Nezávazná
+                    poptávka</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Libor Šimon - kamenictví Obelisk</p>
+            <p>web by <a href="https://paveldutka.com">Pavel Dutka</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Logic
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const nav = document.querySelector('.nav');
+
+            mobileToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+                mobileToggle.classList.toggle('active');
+                document.querySelector('.header').classList.toggle('menu-open');
+            });
+
+            // Dropdown logic for mobile
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const menu = toggle.nextElementSibling;
+                        menu.classList.toggle('open');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

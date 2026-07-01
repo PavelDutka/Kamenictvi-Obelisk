@@ -205,6 +205,44 @@
                     textarea.value = `Dobrý den, mám zájem o nezávaznou kalkulaci na materiál: ${decodeURIComponent(material)}.\n\n[Zde prosím upřesněte požadované rozměry, tloušťku desky, povrchovou úpravu a typ výrobku...]`;
                 }
             }
+
+            // AJAX Form Submission
+            const form = document.querySelector('.contact-form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const btn = form.querySelector('button[type="submit"]');
+                    const originalText = btn.textContent;
+                    btn.disabled = true;
+                    btn.textContent = 'Odesílám...';
+                    
+                    const action = form.getAttribute('action') || 'https://formsubmit.co/pavel.dutka05@gmail.com';
+                    const formData = new FormData(form);
+                    
+                    fetch(action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = 'dekujeme.html';
+                        } else {
+                            alert('Při odesílání poptávky došlo k chybě. Zkuste to prosím znovu nebo nás kontaktujte telefonicky.');
+                            btn.disabled = false;
+                            btn.textContent = originalText;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Při odesílání poptávky došlo k chybě. Zkontrolujte prosím připojení k internetu.');
+                        btn.disabled = false;
+                        btn.textContent = originalText;
+                    });
+                });
+            }
         });
     </script>
 </body>
