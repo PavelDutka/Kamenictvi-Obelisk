@@ -1498,6 +1498,9 @@ h4 {
 .lightbox-content {
     max-width: 90%;
     max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     border-radius: 4px;
     transform: scale(0.95);
