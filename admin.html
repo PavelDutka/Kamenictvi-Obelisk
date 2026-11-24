@@ -61,7 +61,7 @@
         .admin-header {
             background-color: var(--dark);
             color: var(--white);
-            padding: 1rem 1.5rem;
+            padding: 0.85rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -69,67 +69,191 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            gap: 10px;
         }
 
         .admin-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
             color: var(--white);
+            flex-shrink: 0;
         }
 
         .admin-brand img {
-            height: 38px;
+            height: 36px;
             width: auto;
+            display: block;
         }
 
-        .admin-brand h1 {
+        .brand-text {
             font-family: 'Noto Serif', serif;
             font-size: 1.25rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .brand-title {
+            color: var(--white);
+        }
+
+        .brand-subtitle {
+            color: #d1d5db;
+            font-weight: 400;
+            font-size: 1rem;
         }
 
         .admin-nav-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .logged-user-pill {
+            font-size: 0.84rem;
+            color: #d1d5db;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            white-space: nowrap;
+        }
+
+        .logged-user-pill i {
+            color: var(--primary);
+            font-size: 0.95rem;
         }
 
         .btn-link {
-            color: #ddd;
+            color: #e5e7eb;
             text-decoration: none;
-            font-size: 0.9rem;
-            display: flex;
+            font-size: 0.88rem;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 6px 12px;
+            padding: 7px 12px;
             border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             transition: all 0.2s;
+            white-space: nowrap;
         }
 
         .btn-link:hover {
             color: var(--white);
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.18);
+            border-color: var(--primary);
         }
 
         .btn-logout {
-            background: #444;
+            background: #374151;
             color: var(--white);
-            border: none;
-            padding: 7px 16px;
+            border: 1px solid #4b5563;
+            padding: 7px 14px;
             border-radius: 6px;
             cursor: pointer;
             font-size: 0.88rem;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
             transition: all 0.2s;
+            white-space: nowrap;
         }
 
         .btn-logout:hover {
             background: var(--danger);
+            border-color: var(--danger);
+        }
+
+        /* Responsive Navbar Rules */
+        @media (max-width: 900px) {
+            .brand-subtitle {
+                display: none;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .admin-header {
+                padding: 0.65rem 0.9rem;
+            }
+
+            .admin-brand img {
+                height: 30px;
+            }
+
+            .brand-text {
+                font-size: 1.05rem;
+            }
+
+            .admin-nav-actions {
+                gap: 6px;
+            }
+
+            .logged-user-pill {
+                padding: 5px 8px;
+                font-size: 0.8rem;
+            }
+
+            .logged-user-pill strong {
+                max-width: 70px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: inline-block;
+            }
+
+            .btn-link, .btn-logout {
+                padding: 0;
+                width: 36px;
+                height: 36px;
+                justify-content: center;
+            }
+
+            .nav-btn-text {
+                display: none;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .admin-header {
+                padding: 0.55rem 0.65rem;
+            }
+
+            .brand-text {
+                font-size: 0.95rem;
+            }
+
+            .logged-user-pill {
+                padding: 0;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                justify-content: center;
+            }
+
+            .logged-user-pill strong {
+                display: none;
+            }
+
+            .logged-user-pill i {
+                margin: 0;
+                font-size: 1.05rem;
+            }
+
+            .btn-link, .btn-logout {
+                width: 32px;
+                height: 32px;
+            }
         }
 
         /* Banner notice */
@@ -770,6 +894,36 @@
                 opacity: 1;
             }
         }
+
+        /* Mobile General Polish */
+        @media (max-width: 600px) {
+            .admin-container {
+                margin: 1rem auto;
+                padding: 0 0.75rem;
+            }
+
+            .card {
+                padding: 1.25rem 1rem;
+            }
+
+            .admin-gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .dropzone {
+                padding: 1.8rem 1rem;
+            }
+
+            .dropzone-icon {
+                font-size: 2.2rem;
+            }
+
+            .btn-select-files {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 
@@ -779,19 +933,20 @@
     <header class="admin-header">
         <a href="index.html" class="admin-brand">
             <img src="img/logo_icon_primary.svg" alt="Obelisk">
-            <h1>Kamenictví Obelisk &ndash; Administrace</h1>
+            <div class="brand-text">
+                <span class="brand-title">Kamenictví Obelisk</span>
+                <span class="brand-subtitle">&ndash; Administrace</span>
+            </div>
         </a>
         <div class="admin-nav-actions" id="nav-actions" style="display: none;">
-            <span id="logged-user"
-                style="font-size: 0.85rem; color: #bbb; display: flex; align-items: center; gap: 6px; margin-right: 5px;">
-                <i class="fas fa-user-circle" style="color: var(--primary);"></i> <strong id="username-display"
-                    style="color: #fff;">admin</strong>
+            <span id="logged-user" class="logged-user-pill">
+                <i class="fas fa-user-circle"></i> <strong id="username-display">admin</strong>
             </span>
-            <a href="galerie.html" target="_blank" class="btn-link">
-                <i class="fas fa-external-link-alt"></i> Zobrazit galerii
+            <a href="galerie.html" target="_blank" class="btn-link" title="Zobrazit galerii">
+                <i class="fas fa-external-link-alt"></i> <span class="nav-btn-text">Galerie</span>
             </a>
-            <button class="btn-logout" id="btn-logout">
-                <i class="fas fa-sign-out-alt"></i> Odhlásit
+            <button class="btn-logout" id="btn-logout" title="Odhlásit se">
+                <i class="fas fa-sign-out-alt"></i> <span class="nav-btn-text">Odhlásit</span>
             </button>
         </div>
     </header>
