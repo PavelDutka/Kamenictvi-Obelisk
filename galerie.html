@@ -18,6 +18,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="img/logo_icon_primary.svg">
 
+    <!-- Firebase Compatibility SDK via CDN & Config -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+    <script src="js/gallery-config.js"></script>
+
     <style>
         .gallery-grid {
             display: grid;
@@ -81,6 +86,62 @@
 
         .gallery-item:hover .item-overlay i {
             transform: translateY(0);
+        }
+
+        /* Video Gallery Items */
+        .gallery-item.video-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item .video-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.75);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .gallery-item .video-badge i {
+            color: var(--primary-color);
+            font-size: 0.75rem;
+        }
+
+        .gallery-item.video-item .item-overlay i {
+            font-size: 2.8rem;
+            color: #ffffff;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+        }
+
+        /* Lightbox for Videos */
+        .lightbox-wrapper {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-content-video {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 6px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            background: #000;
+            outline: none;
         }
 
         .load-more-container {
@@ -226,12 +287,15 @@
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" id="lightbox-close" aria-label="Zavřít"><i class="fas fa-times"></i></button>
-        <img src="" alt="Detailní náhled" class="lightbox-content" id="lightbox-img">
+        <div class="lightbox-wrapper">
+            <img src="" alt="Detailní náhled" class="lightbox-content" id="lightbox-img" style="display: none;">
+            <video controls playsinline class="lightbox-content lightbox-content-video" id="lightbox-video" style="display: none;"></video>
+        </div>
     </div>
 
     <script>
-        // Gallery Images List (49 items)
-        const galleryImages = [
+        // Default local photos list (49 items)
+        const defaultLocalImages = [
             "WhatsApp Image 2026-06-02 at 12.19.39.jpeg",
             "WhatsApp Image 2026-06-02 at 12.19.39 (1).jpeg",
             "WhatsApp Image 2026-06-02 at 12.19.39 (2).jpeg",
@@ -281,7 +345,11 @@
             "WhatsApp Image 2026-06-02 at 12.19.47 (5).jpeg",
             "WhatsApp Image 2026-06-02 at 12.19.47 (6).jpeg",
             "WhatsApp Image 2026-06-02 at 12.19.47 (7).jpeg"
-        ];
+        ].map(name => ({
+            type: 'image',
+            url: `img/gallery/${name}`,
+            title: 'Realizace Kamenictví Obelisk'
+        }));
 
         document.addEventListener('DOMContentLoaded', () => {
             // Mobile Menu Logic
@@ -305,72 +373,189 @@
                 });
             });
 
-            // Pagination Settings
+            // Gallery Configuration & Elements
             const itemsPerPage = 12;
             let loadedCount = 0;
+            let allGalleryItems = [];
 
             const container = document.getElementById('gallery-container');
             const loadMoreBox = document.getElementById('load-more-box');
             const loadMoreBtn = document.getElementById('load-more-btn');
+            loadMoreBtn.innerText = 'Zobrazit další';
 
-            function loadImages() {
-                const nextLimit = Math.min(loadedCount + itemsPerPage, galleryImages.length);
+            // Lightbox Elements
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            const closeBtn = document.getElementById('lightbox-close');
+
+            // Render next batch of items
+            function renderItems() {
+                const nextLimit = Math.min(loadedCount + itemsPerPage, allGalleryItems.length);
                 for (let i = loadedCount; i < nextLimit; i++) {
-                    const filename = galleryImages[i];
-                    const filepath = `img/gallery/${filename}`;
+                    const item = allGalleryItems[i];
+                    const isVideo = item.type === 'video';
 
-                    const item = document.createElement('div');
-                    item.className = 'gallery-item';
-                    item.innerHTML = `
-                        <img src="${filepath}" alt="Realizace Kamenictví Obelisk" loading="lazy">
-                        <div class="item-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    `;
-                    container.appendChild(item);
+                    const el = document.createElement('div');
+                    el.className = 'gallery-item' + (isVideo ? ' video-item' : '');
+                    el.dataset.type = item.type;
+                    el.dataset.src = item.url;
+                    el.dataset.title = item.title || 'Realizace Kamenictví Obelisk';
+
+                    if (isVideo) {
+                        el.innerHTML = `
+                            <video src="${item.url}" preload="metadata" muted playsinline></video>
+                            <div class="video-badge"><i class="fas fa-play"></i> Video</div>
+                            <div class="item-overlay">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        `;
+                    } else {
+                        el.innerHTML = `
+                            <img src="${item.url}" alt="${item.title || 'Realizace Kamenictví Obelisk'}" loading="lazy">
+                            <div class="item-overlay">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        `;
+                    }
+
+                    container.appendChild(el);
                 }
-                
+
                 loadedCount = nextLimit;
-                
-                // Hide button if all images loaded
-                if (loadedCount >= galleryImages.length) {
+
+                // Hide load more button when all loaded
+                if (loadedCount >= allGalleryItems.length) {
                     loadMoreBox.style.display = 'none';
+                } else {
+                    loadMoreBox.style.display = 'block';
                 }
             }
 
-            // Initial load
-            loadImages();
+            // Lightbox handler
+            function openLightbox(src, type) {
+                if (type === 'video') {
+                    lightboxImg.style.display = 'none';
+                    lightboxImg.src = '';
+                    lightboxVideo.style.display = 'block';
+                    lightboxVideo.src = src;
+                    lightbox.classList.add('active');
+                    lightboxVideo.play().catch(() => {});
+                } else {
+                    lightboxVideo.pause();
+                    lightboxVideo.style.display = 'none';
+                    lightboxVideo.src = '';
+                    lightboxImg.style.display = 'block';
+                    lightboxImg.src = src;
+                    lightbox.classList.add('active');
+                }
+            }
 
-            // Load more event
-            loadMoreBtn.addEventListener('click', loadImages);
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                lightboxVideo.pause();
+                lightboxVideo.src = '';
+                lightboxImg.src = '';
+            }
 
-            // Lightbox Event Delegation
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            const closeBtn = document.getElementById('lightbox-close');
-
+            // Click delegation on gallery items
             container.addEventListener('click', (e) => {
                 const item = e.target.closest('.gallery-item');
                 if (item) {
-                    const img = item.querySelector('img');
-                    if (img) {
-                        lightboxImg.src = img.src;
-                        lightbox.classList.add('active');
+                    const src = item.dataset.src;
+                    const type = item.dataset.type || 'image';
+                    if (src) {
+                        openLightbox(src, type);
                     }
                 }
             });
 
-            if (closeBtn && lightbox) {
-                closeBtn.addEventListener('click', () => {
-                    lightbox.classList.remove('active');
-                });
-
-                lightbox.addEventListener('click', (e) => {
-                    if (e.target === lightbox) {
-                        lightbox.classList.remove('active');
-                    }
-                });
+            // Close lightbox events
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeLightbox);
             }
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox || e.target.classList.contains('lightbox-wrapper')) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+
+            loadMoreBtn.addEventListener('click', renderItems);
+
+            // Fetch Items from Cloud / Local
+            async function loadAllGalleryItems() {
+                let cloudItems = [];
+                let hiddenDefaults = [];
+
+                // 1. Firebase Firestore check
+                if (window.isFirebaseConfigured && window.isFirebaseConfigured()) {
+                    try {
+                        if (!firebase.apps.length) {
+                            firebase.initializeApp(window.FIREBASE_CONFIG);
+                        }
+                        const snapshot = await firebase.firestore().collection('gallery').get();
+
+                        snapshot.forEach((doc) => {
+                            const data = doc.data();
+                            if (data.type === 'hidden_default') {
+                                if (data.fileName) hiddenDefaults.push(data.fileName);
+                            } else {
+                                cloudItems.push({
+                                    type: data.type || (data.url && data.url.match(/\.(mp4|webm|mov)(\?.*)?$/i) ? 'video' : 'image'),
+                                    url: data.url,
+                                    title: data.title || '',
+                                    createdAt: data.createdAt
+                                });
+                            }
+                        });
+
+                        // Sort newest first
+                        cloudItems.sort((a, b) => {
+                            const timeA = a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0;
+                            const timeB = b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis() : 0;
+                            return timeB - timeA;
+                        });
+                    } catch (err) {
+                        console.warn("Chyba načítání z Firebase, použity lokální položky:", err);
+                    }
+                } else {
+                    // Check local demo storage
+                    try {
+                        const localDemo = localStorage.getItem('obelisk_gallery_demo_items');
+                        if (localDemo) {
+                            const parsed = JSON.parse(localDemo);
+                            cloudItems = parsed.map(p => ({
+                                type: p.type,
+                                url: p.url,
+                                title: p.title
+                            }));
+                        }
+                    } catch (e) {}
+                }
+
+                // Place new cloud items first, followed by active default photos
+                const baseList = window.DEFAULT_GALLERY_IMAGES || defaultLocalImages.map(d => d.url.replace('img/gallery/', ''));
+                const activeDefaults = baseList
+                    .filter(name => !hiddenDefaults.includes(name))
+                    .map(name => ({
+                        type: 'image',
+                        url: `img/gallery/${name}`,
+                        title: 'Realizace Kamenictví Obelisk'
+                    }));
+
+                allGalleryItems = [...cloudItems, ...activeDefaults];
+                renderItems();
+            }
+
+            // Initial load
+            loadAllGalleryItems();
         });
     </script>
 </body>
