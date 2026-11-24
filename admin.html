@@ -782,8 +782,10 @@
             <h1>Kamenictví Obelisk &ndash; Administrace</h1>
         </a>
         <div class="admin-nav-actions" id="nav-actions" style="display: none;">
-            <span id="logged-user" style="font-size: 0.85rem; color: #bbb; display: flex; align-items: center; gap: 6px; margin-right: 5px;">
-                <i class="fas fa-user-circle" style="color: var(--primary);"></i> <strong id="username-display" style="color: #fff;">admin</strong>
+            <span id="logged-user"
+                style="font-size: 0.85rem; color: #bbb; display: flex; align-items: center; gap: 6px; margin-right: 5px;">
+                <i class="fas fa-user-circle" style="color: var(--primary);"></i> <strong id="username-display"
+                    style="color: #fff;">admin</strong>
             </span>
             <a href="galerie.html" target="_blank" class="btn-link">
                 <i class="fas fa-external-link-alt"></i> Zobrazit galerii
@@ -797,8 +799,11 @@
     <!-- Notice Banner -->
     <div class="setup-notice" id="setup-notice" style="display: none;">
         <div>
-            <strong><i class="fas fa-info-circle"></i> Zbývá nastavit Cloudinary (úložiště fotek a videí zdarma bez karty):</strong>
-            <p id="setup-notice-text">Pro nahrávání souborů do cloudu vložte do <code>js/gallery-config.js</code> vaše <strong>Cloud Name</strong> a <strong>Upload Preset</strong> z Cloudinary. Vše je 100% zdarma bez nutnosti platební karty.</p>
+            <strong><i class="fas fa-info-circle"></i> Zbývá nastavit Cloudinary (úložiště fotek a videí zdarma bez
+                karty):</strong>
+            <p id="setup-notice-text">Pro nahrávání souborů do cloudu vložte do <code>js/gallery-config.js</code> vaše
+                <strong>Cloud Name</strong> a <strong>Upload Preset</strong> z Cloudinary. Vše je 100% zdarma bez
+                nutnosti platební karty.</p>
         </div>
         <button id="btn-show-instructions"><i class="fas fa-book"></i> Návod k nastavení</button>
     </div>
@@ -806,17 +811,24 @@
     <!-- Instructions Modal -->
     <div class="modal-overlay" id="instructions-modal">
         <div class="modal" style="max-width: 620px;">
-            <h3 class="modal-title"><i class="fas fa-cloud" style="color: var(--primary);"></i> Jak nastavit Cloudinary (cca 1 minuta, bez karty)</h3>
+            <h3 class="modal-title"><i class="fas fa-cloud" style="color: var(--primary);"></i> Jak nastavit Cloudinary
+                (cca 1 minuta, bez karty)</h3>
             <div class="modal-body" style="font-size: 0.9rem; max-height: 65vh; overflow-y: auto;">
                 <ol style="padding-left: 1.2rem; display: flex; flex-direction: column; gap: 12px;">
                     <li>Přejděte na <a href="https://cloudinary.com/users/register_free" target="_blank"
-                            style="color: var(--primary); font-weight: 600;">Cloudinary bezplatnou registraci</a> (není vyžadována platební karta).</li>
-                    <li>Po přihlášení na hlavní stránce (Dashboard) uvidíte <strong>Cloud Name</strong> (např. <code>dmxyz123</code>).</li>
-                    <li>Vlevo dole klikněte na <strong>ozubené kolečko (Settings)</strong> ➔ v horním menu klikněte na <strong>Upload</strong>.</li>
-                    <li>Sjeďte dolů k sekci <strong>Upload presets</strong> a klikněte na <strong>Add upload preset</strong>.</li>
-                    <li>Změňte <strong>Signing Mode</strong> na <strong>Unsigned</strong> a klikněte nahoře na <strong>Save</strong>.</li>
+                            style="color: var(--primary); font-weight: 600;">Cloudinary bezplatnou registraci</a> (není
+                        vyžadována platební karta).</li>
+                    <li>Po přihlášení na hlavní stránce (Dashboard) uvidíte <strong>Cloud Name</strong> (např.
+                        <code>dmxyz123</code>).</li>
+                    <li>Vlevo dole klikněte na <strong>ozubené kolečko (Settings)</strong> ➔ v horním menu klikněte na
+                        <strong>Upload</strong>.</li>
+                    <li>Sjeďte dolů k sekci <strong>Upload presets</strong> a klikněte na <strong>Add upload
+                            preset</strong>.</li>
+                    <li>Změňte <strong>Signing Mode</strong> na <strong>Unsigned</strong> a klikněte nahoře na
+                        <strong>Save</strong>.</li>
                     <li>Zkopírujte název tohoto presetu (např. <code>ml_default</code> nebo vámi zvolený název).</li>
-                    <li>Vložte obě hodnoty do souboru <strong><code>js/gallery-config.js</code></strong> do sekce <code>CLOUDINARY_CONFIG</code>.</li>
+                    <li>Vložte obě hodnoty do souboru <strong><code>js/gallery-config.js</code></strong> do sekce
+                        <code>CLOUDINARY_CONFIG</code>.</li>
                 </ol>
             </div>
             <div class="modal-footer">
@@ -838,14 +850,18 @@
 
             <form id="login-form">
                 <div class="form-group">
-                    <label for="login-username">Uživatelské jméno</label>
-                    <input type="text" id="login-username" class="form-control" placeholder="např. admin" required autocomplete="username">
+                    <label for="login-username">Email</label>
+                    <input type="text" id="login-username" class="form-control" placeholder="" required
+                        autocomplete="username">
                 </div>
                 <div class="form-group">
                     <label for="login-password">Heslo</label>
                     <div style="position: relative; display: flex; align-items: center;">
-                        <input type="password" id="login-password" class="form-control" placeholder="••••••••" required autocomplete="current-password" style="padding-right: 44px;">
-                        <button type="button" id="btn-toggle-password" style="position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: #777; font-size: 1.1rem; padding: 4px; display: flex; align-items: center; justify-content: center;" title="Zobrazit / skrýt heslo">
+                        <input type="password" id="login-password" class="form-control" placeholder="••••••••" required
+                            autocomplete="current-password" style="padding-right: 44px;">
+                        <button type="button" id="btn-toggle-password"
+                            style="position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: #777; font-size: 1.1rem; padding: 4px; display: flex; align-items: center; justify-content: center;"
+                            title="Zobrazit / skrýt heslo">
                             <i class="fas fa-eye" id="toggle-password-icon"></i>
                         </button>
                     </div>
@@ -1352,7 +1368,7 @@
                             if (errObj.error && errObj.error.message) {
                                 errMsg = errObj.error.message;
                             }
-                        } catch (e) {}
+                        } catch (e) { }
                         console.error("Cloudinary error:", xhr.responseText);
                         queueItem.statusText.innerText = 'Chyba';
                         queueItem.statusText.classList.add('error');
